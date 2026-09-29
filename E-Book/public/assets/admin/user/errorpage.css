@@ -1,0 +1,375 @@
+
+/* =========================================
+   BOOKIM UNIVERSAL ERROR PAGE
+========================================= */
+
+.bookim-error-section {
+    background: #f8faf8;
+}
+
+
+/* Error Card */
+
+.bookim-error-card {
+
+    background: #ffffff;
+
+    border-radius: 24px;
+
+    padding: 55px 45px;
+
+    text-align: center;
+
+    border: 1px solid #e7eee8;
+
+    box-shadow: 0 15px 45px rgba(55, 110, 70, 0.10);
+
+}
+
+
+/* Error Icon */
+
+.bookim-error-icon {
+
+    width: 85px;
+
+    height: 85px;
+
+    margin: 0 auto 22px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: rgba(111, 184, 107, 0.12);
+
+    color: #3e7c41;
+
+    font-size: 32px;
+
+    box-shadow: 0 8px 25px rgba(62, 124, 65, 0.12);
+
+}
+
+
+/* Error Code */
+
+.bookim-error-code {
+
+    font-size: 76px;
+
+    line-height: 1;
+
+    font-weight: 800;
+
+    color: #3e7c41;
+
+    letter-spacing: 3px;
+
+    margin-bottom: 14px;
+
+}
+
+
+/* Heading */
+
+.bookim-error-card h2 {
+
+    font-size: 32px;
+
+    font-weight: 700;
+
+    color: #202820;
+
+    margin-bottom: 14px;
+
+}
+
+
+/* Message */
+
+.bookim-error-message {
+
+    max-width: 620px;
+
+    margin: 0 auto 28px;
+
+    font-size: 16px;
+
+    line-height: 1.8;
+
+    color: #6c756d;
+
+}
+
+
+/* Information Box */
+
+.bookim-error-info {
+
+    max-width: 620px;
+
+    margin: 0 auto 30px;
+
+    padding: 18px 20px;
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 14px;
+
+    text-align: left;
+
+    border-radius: 14px;
+
+    background: #f3f8f3;
+
+    border: 1px solid #dceadc;
+
+}
+
+
+/* Info Icon */
+
+.bookim-error-info .info-icon {
+
+    color: #3e7c41;
+
+    font-size: 21px;
+
+    margin-top: 2px;
+
+}
+
+
+/* Info Heading */
+
+.bookim-error-info strong {
+
+    display: block;
+
+    color: #2f6333;
+
+    margin-bottom: 4px;
+
+}
+
+
+/* Info Text */
+
+.bookim-error-info p {
+
+    margin: 0;
+
+    color: #687169;
+
+    font-size: 14px;
+
+    line-height: 1.6;
+
+}
+
+
+/* Buttons */
+
+.bookim-error-buttons {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 12px;
+
+    flex-wrap: wrap;
+
+}
+
+
+/* Back Button */
+
+.bookim-back-btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 13px 22px;
+
+    border-radius: 8px;
+
+    border: 1px solid #d9e4da;
+
+    color: #3e7c41;
+
+    background: #ffffff;
+
+    font-weight: 600;
+
+    transition: all .25s ease;
+
+}
+
+
+.bookim-back-btn:hover {
+
+    background: #f1f7f1;
+
+    color: #2f6333;
+
+    transform: translateY(-2px);
+
+}
+
+
+/* Retry Button */
+
+.bookim-retry-btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 13px 22px;
+
+    border-radius: 8px;
+
+    border: 1px solid #d9e4da;
+
+    color: #3e7c41;
+
+    background: #ffffff;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: all .25s ease;
+
+}
+
+
+.bookim-retry-btn:hover {
+
+    background: #f1f7f1;
+
+    color: #2f6333;
+
+    transform: translateY(-2px);
+
+}
+
+
+/* Footer */
+
+.bookim-error-footer {
+
+    margin-top: 35px;
+
+    padding-top: 22px;
+
+    border-top: 1px solid #edf1ed;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 8px;
+
+    color: #89938a;
+
+    font-size: 13px;
+
+}
+
+
+.bookim-error-footer i {
+
+    color: #6fb86b;
+
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 576px) {
+
+    .bookim-error-card {
+
+        padding: 40px 22px;
+
+        border-radius: 18px;
+
+    }
+
+
+    .bookim-error-icon {
+
+        width: 70px;
+
+        height: 70px;
+
+        font-size: 27px;
+
+    }
+
+
+    .bookim-error-code {
+
+        font-size: 60px;
+
+    }
+
+
+    .bookim-error-card h2 {
+
+        font-size: 25px;
+
+    }
+
+
+    .bookim-error-message {
+
+        font-size: 14px;
+
+    }
+
+
+    .bookim-error-info {
+
+        padding: 15px;
+
+    }
+
+
+    .bookim-error-buttons {
+
+        flex-direction: column;
+
+    }
+
+
+    .bookim-error-buttons a,
+    .bookim-error-buttons button {
+
+        width: 100%;
+
+        justify-content: center;
+
+    }
+
+}

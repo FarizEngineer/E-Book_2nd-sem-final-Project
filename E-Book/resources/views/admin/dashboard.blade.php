@@ -10,6 +10,12 @@
 
 
     <div class="admin-main">
+  @if (session('success'))
+     <div class="alert alert-success" role="alert">
+      {{ session('success') }}
+</div> 
+  @endif
+
       <nav class="navbar admin-navbar navbar-expand bg-white">
         <div class="container-fluid px-3 px-lg-4">
           <button class="sidebar-toggle" type="button" data-sidebar-toggle aria-controls="adminSidebar" aria-expanded="true" aria-label="Toggle sidebar">
@@ -59,9 +65,9 @@
 
               <ul class="dropdown-menu dropdown-menu-end">
                 <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#profileModal">Profile</a></li>
-                <li><a class="dropdown-item" href="settings.html">Account settings</a></li>
+                <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#accountModal">Edit Profile</a></li>
                 <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="login.html">Sign out</a></li>
+                <li><a class="dropdown-item" href="{{ route('logout') }}">Log out</a></li>
               </ul>
             </div>
 
@@ -112,7 +118,7 @@
     border-right:none;"
     disabled>
       </div>
-      <div class="modal-footer">
+
 
      <div class="modal-footer">
       
@@ -121,11 +127,84 @@
     <button type="submit" class="btn btn-primary">Logout</button>
   </form>
 </div>
-  
+
+    </div>
+  </div>
+</div>
+<!-- Profile modal end -->
+
+<!-- Account modal -->
+ <div class="modal fade" id="accountModal" tabindex="-1" aria-labelledby="AccountModalLabel" aria-hidden="true">
+ <div class="modal-dialog modal-dialog-centered ">
+    <div class="modal-content bg-light">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5 " id="exampleModalToggleLabel">Edit Admin Profile</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+<div class="text-center mt-4 mb-3">
+  <span 
+  style="border: 3px solid rgba(39, 203, 154, 1.00); border-radius:50%; padding:14px;"
+  >
+ <i class="fa-solid fa-user-tie fa-2xl " style="color:rgba(39, 203, 154, 1.00);"></i>
+</span>
+</div>
+<form action="{{route('adminupdate',$admin->id)}}" method="post">
+  @csrf
+      <label for="username" class="text-dark">Admin name :</label>
+    <input 
+    type="text" 
+    class="form-control bg-light text-dark " 
+    name="username" 
+    value="{{$admin->name}}" 
+    style="border-left:4px solid rgba(39, 203, 154, 1.00); 
+    border-radius:10px;   
+    border-bottom:4px solid rgba(39, 203, 154, 1.00);
+    border-top:none;
+    border-right:none;">
+
+    <label for="usermail" class="text-dark mt-3">Admin mail :</label>
+    <input 
+    type="text" 
+    class="form-control bg-light text-dark " 
+    name="usermail" 
+    value="{{$admin->email}}" 
+    style="border-left:4px solid rgba(39, 203, 154, 1.00);  
+    border-radius:10px;  
+    border-bottom:4px solid rgba(39, 203, 154, 1.00);
+    border-top:none;
+    border-right:none;">
+
+    <input 
+    type="hidden" 
+    class="form-control bg-light text-dark " 
+    name="role" 
+    value="{{$admin->role}}" >
+
+<div class="text-center"><button class="btn btn-primary mt-3">Update</button></div>
+</form>
+    
+      </div>
+      <div class="modal-footer text-center">
+      <marquee class="text-center" behavior="scroll" direction="left" scrollamount="6"
+    style="
+        background: linear-gradient(90deg, #12d382, #bd5beb);
+        color: #fff;
+        font-family: 'times new roman';
+        font-size: 18px;
+        font-weight: 600;
+        letter-spacing: 1px;
+        padding: 10px 0;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    ">
+     Only Admins can edit their profile
+</marquee>
       </div>
     </div>
   </div>
 </div>
+<!-- Account modal end -->
 
 
       <main class="dashboard-content">

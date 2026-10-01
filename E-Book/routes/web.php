@@ -13,6 +13,7 @@ Route::middleware(['userauth'])->group(function(){
 Route::get('/alluser',[authController::class,'fatch'])->name('userfatch');
 Route::get('delete/user{id}',[authController::class,'delete'])->name('deletuser');
 Route::get('/edit/user{id}',[authController::class,'edit'])->name('useredit');
+Route::post('/edit/update/admin/{id}',[authController::class,'adminupdate'])->name('adminupdate');
 Route::post('/update/user{id}',[authController::class,'update'])->name('updated');
 
 //books upload all routing

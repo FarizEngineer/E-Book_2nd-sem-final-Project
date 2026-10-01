@@ -44,7 +44,7 @@ $category->name=$request->catname;
 $category->description=$request->description;
 
 if($category->save()){
-    return redirect()->route('fatchcategory')->with('success',"USER IS CREATED");
+    return redirect()->route('fatchcategory')->with('success',"Category has been created, successfuly...");
 }
 else{
     return redirect()->route('errorpage');
@@ -59,7 +59,7 @@ else{
     function delete($id){
         $user=category::find($id);
     category::destroy($user->id);
-     return redirect()->route('fatchcategory')->with('success',"USER IS DELETED");
+     return redirect()->route('fatchcategory')->with('success',"Category has been deleted, successfuly...");
     }
    function edit($id){
     $data=category::find($id);
@@ -71,7 +71,7 @@ else{
          $data->description=$request->description;
 
          if($data->save()){
-     return redirect()->route('fatchcategory')->with('success',"USER IS UPDATED");
+     return redirect()->route('fatchcategory')->with('success',"Category has been updated, successfuly");
 
          }
          else{
@@ -95,7 +95,7 @@ $author->name=$request->authorname;
 $author->detail=$request->detail;
 
 if($author->save()){
-    return redirect()->route('allauthor')->with('success',"AUTHOR IS CREATED");
+    return redirect()->route('allauthor')->with('success',"The role has been changed to AUTHOR");
 }
 else{
   return redirect()->route('errorpage');
@@ -163,7 +163,7 @@ $book->author_id=$request->author_name;
 
 
 if($book->save()){
-    return redirect()->route('bookfatch')->with('success',"BOOK IS UPLOADED");
+    return redirect()->route('bookfatch')->with('success',"Book has been uploaded, Successfuly...");
 
 }
 else{
@@ -181,7 +181,7 @@ else{
       function deletebook($id){
         $user=book::find($id);
     book::destroy($user->id);
-     return redirect()->route('bookfatch')->with('success',"AUTHOR IS DELETED");
+     return redirect()->route('bookfatch')->with('success',"Book has been deleted");
     }
 
    function editbook($id){
@@ -208,7 +208,7 @@ $book->category_id=$request->category_name;
 $book->author_id=$request->author_name;
 
          if($book->save()){
-     return redirect()->route('bookfatch')->with('success',"AUTHOR IS UPDATED");
+     return redirect()->route('bookfatch')->with('success',"Book has been updated, Successfuly...");
 
          }
          else{

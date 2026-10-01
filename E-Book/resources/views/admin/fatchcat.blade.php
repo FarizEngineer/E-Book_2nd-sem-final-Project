@@ -14,7 +14,7 @@
 
 @forelse ($allcategory as $cat)
         <div 
-        class="card w-50"
+        class="card w-50 mt-4"
         style="border: 2px solid rgba(39, 203, 154, 1.00); border-top-left-radius:40px; border-bottom-right-radius:40px;"
         >
   <div class="card-body">
@@ -32,7 +32,7 @@
       </span>
       <h5 class="fw-semibold mb-1">No categories found</h5>
       <p class="text-muted mb-3">Create a category to start organizing your books.</p>
-      <a href="{{ route('addcategory') }}" class="btn btn-success">
+      <a href="{{ route('insert') }}" class="btn btn-success">
         <i class="fa-solid fa-plus me-1"></i> Add category
       </a>
     </div>   

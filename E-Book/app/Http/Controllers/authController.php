@@ -67,6 +67,24 @@ if ($request->password) {
   return redirect()->route('errorpage');
 }}
 
+function adminupdate($id, Request $request){
+     $data=User::find($id);
+      $data->name=$request->username;
+         $data->email=$request->usermail;
+$data->role=$request->role;
+
+if ($request->password) {
+    $data->password = bcrypt($request->password);
+}
+         if($data->save()){
+     return redirect()->route('dashboard')->with('success',"Your profile has been updated, successfuly...");
+
+         }
+         else{
+  return redirect()->route('errorpage');
+}
+}
+
     // Login Form
     function loginform()
     {

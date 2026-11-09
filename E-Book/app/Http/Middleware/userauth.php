@@ -31,7 +31,5 @@ return redirect()->route('bookshows');
 else{
     return redirect()->route('loginform');
 }
-
-
     }
 }

@@ -726,7 +726,7 @@
                 <div class="feature">
 
                     <span class="feature-icon">
-                        ✓
+                        📖
                     </span>
 
                     Discover amazing books
@@ -737,10 +737,9 @@
                 <div class="feature">
 
                     <span class="feature-icon">
-                        ✓
+                        🏆
                     </span>
-
-                    Build your personal collection
+Showcase Your Writing & Win Exciting Prizes
 
                 </div>
 
@@ -748,10 +747,10 @@
                 <div class="feature">
 
                     <span class="feature-icon">
-                        ✓
+                        🛒
                     </span>
 
-                    Share and explore new stories
+                    Order Your Favorite Books Anytime, Anywhere
 
                 </div>
 

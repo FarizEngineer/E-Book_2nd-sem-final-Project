@@ -62,32 +62,79 @@
 
 
 {{-- Fetch news --}}
+ <div class="text-center mt-5 mb-4">
 <button type="submit" class="btn btn-primary mt-5 mb-4">
     <h4 class="text-white">All News</h4>
 </button>
 
-         @foreach ($news as $item)
-<div class="row mt-2">
-    <div class="col-md-10 offset-1">
-          <div class="card mb-3 ">
-  <img src="{{asset('newimage/').$item['image']}}}" class="card-img-top" alt="img...">
-  <div class="card-body">
-    <h5 class="card-title ">{{$item['title']}}</h5>
-    <p class="card-text ">{{$item['news']}}</p>
-    <hr class="">
-    <p class="card-text">
-        <small class="text-body-secondary ">News no : {{$item['id']}}</small>
-        <small class="text-body-secondary  ms-5">expire in : {{$item['dealine']}}</small>
-        <small class="text-body-secondary  ms-5">Status : {{$item['tag']}}</small>
-        <small class="text-body-secondary  ms-5">uploaded by Admin :{{ $item->user->name ?? 'Admin' }}</small>
-      <a class="btn btn-primary ms-5 mt-2" href="{{Route('delnews', $item['id'] )}}">Delete</a>
-      <a class="btn btn-primary ms-2 mt-2" href="{{Route('edtnews', $item['id'] )}}">Edit</a>
-    </p>
-  </div>
-</div>
+  
+        <div>
+            <span class="an-count">
+                <i class="fa-regular fa-newspaper"></i>
+                {{ count($news) }} {{ count($news) === 1 ? 'news item' : 'news items' }}
+            </span>
+        </div>
+    </div>
+ 
+    <div class="row g-4">
+ 
+        @forelse ($news as $item)
+            <div class="col-12">
+                <div class="an-card" data-tag="{{ strtolower($item->tag ?? '') }}" style="animation-delay: {{ $loop->index * 0.07 }}s;">
+ 
+                    {{-- Image + badges --}}
+                    <div class="an-image">
+                        <img src="{{ $item->image ? asset('storage/newimage/' . $item->image) : asset('user/assets/img/news/09.jpg') }}"
+                             alt="{{ $item->title }}">
+                        <span class="an-id">#{{ $item->id }}</span>
+                        <span class="an-tag">{{ $item->tag }}</span>
+                    </div>
+ 
+                    {{-- Body --}}
+                    <div class="an-body">
+                        <h4 class="an-title text-break">{{ $item->title }}</h4>
+                        <p class="an-text">{{ $item->news }}</p>
+ 
+                        <div class="an-meta">
+                            <span class="an-chip">
+                                <i class="fa-regular fa-hourglass-half"></i>Expires: <strong>{{ $item->dealine }}</strong>
+                            </span>
+                            <span class="an-chip">
+                                <i class="fa-regular fa-user"></i>{{ $item->user->name ?? 'Admin' }}
+                            </span>
+                        </div>
+ 
+                        <div class="an-actions">
+                            <a href="{{ route('admindtl', $item->id) }}" class="an-btn an-btn--view">
+                                <i class="fa-regular fa-eye"></i> View
+                            </a>
+                            <a href="{{ route('edtnews', $item->id) }}" class="an-btn an-btn-edit">
+                                <i class="fa-solid fa-pen-to-square"></i> Edit
+                            </a>
+                            <a href="{{ route('delnews', $item->id) }}" class="an-btn an-btn--delete"
+                               onclick="return confirm('Delete this news?')">
+                                <i class="fa-solid fa-trash"></i> Delete
+                            </a>
+                        </div>
+                    </div>
+ 
+                </div>
+            </div>
+        @empty
+            <div class="col-12">
+                <div class="an-empty">
+                    <div class="an-tile"><i class="fa-regular fa-newspaper"></i></div>
+                    <h5 class="fw-semibold mb-1">No news found</h5>
+                    <p class="mb-0">Uploaded news will appear here.</p>
+                </div>
+            </div>
+        @endforelse
+ 
     </div>
 </div>
-    @endforeach
+ 
+
+
 </div>
 
 

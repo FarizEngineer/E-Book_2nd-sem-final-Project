@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\book;
+use App\Models\category;
 use App\Models\competition;
 use App\Models\enroll_comps;
 use App\Models\news;
@@ -22,6 +24,7 @@ function pgnews(){
     function insertnews(Request $req){
 $picname=$req->file('nimage')->store('newimage','public');
 $path=basename($picname);
+
 $data = [
         'title'    => $req->nhead,
         'news'     => $req->nnews,
@@ -79,7 +82,10 @@ $data=news::find($id);
 return view('user.newsdetl', compact('data'));
 }
 
-
+function admindtl($id){
+$data=news::find($id);
+return view('admin.admin_news_detail', compact('data'));
+}
 
 // Competition work
 
@@ -431,5 +437,12 @@ function resultannounce(Request $req, $id){
 
       return redirect()->route('errorpage');
 }
+
+function bycat($id){
+  $category = category::findOrFail($id);
+    $books = book::with('book_author')->where('category_id', $category->id)->latest()->paginate(12);
+      return view('user.books_by_cat', compact('category', 'books'));
+}
+
 
 }

@@ -37,10 +37,12 @@
     <link rel="stylesheet" href="{{asset('user/assets/css/main.css')}}">
     <link rel="stylesheet" href="{{asset('assets/admin/user/usercomp.css')}}">
     <link rel="stylesheet" href="{{asset('assets/admin/user/errorpage.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/admin/user/cat.css')}}">
     <link
     rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
 >
+
 </head>
 
 <body>
@@ -208,7 +210,7 @@
                 <div class="header-main">
                     <div class="header-left">
                         <div class="logo">
-                            <a class='header-logo' href='index.html'>
+                            <a class='header-logo' href='#'>
                                 <img src="{{asset('user/assets/img/logo/logo.png')}}" alt="logo-img">
                             </a>
                         </div>
@@ -251,16 +253,6 @@
                                         </a>
                                         <ul class="submenu">
                                             <li><a href="{{route('about')}}">About Us</a></li>
-                                            <li class="has-dropdown">
-                                                <a href="{{route('author')}}">
-                                                    Author
-                                                    <i class="fa-solid fa-chevron-right"></i>
-                                                </a>
-                                                <ul class="submenu">
-                                                    <li><a href="{{route('author')}}">Author</a></li>
-                                                    <li><a href='team-details.html'>Author Profile</a></li>
-                                                </ul>
-                                            </li>
                                             <li><a href="{{route('faq')}}">Faq's</a></li>
                                             <li><a href="{{route('error')}}">404 Page</a></li>
                                         </ul>
@@ -445,119 +437,138 @@
     </section>
 
     <!-- Shop Section start  -->
-    <section class="shop-section section-padding fix pt-0">
-        <div class="container">
-            <div class="section-title-area">
-                <div class="section-title">
-                    <h2 class="wow fadeInUp" data-wow-delay=".3s">Featured Books</h2>
-                </div>
-                <a class='theme-btn style-2 fadeInUp' data-wow-delay='.5s' href='shop.html'>Explore More <i
-                        class="fa-solid fa-arrow-right-long"></i></a>
+
+<section class="fb-theme shop-section section-padding fix pt-0">
+    <div class="container">
+        <div class="section-title-area">
+            <div class="section-title">
+                <h2 class="wow fadeInUp" data-wow-delay=".3s">Featured Books</h2>
             </div>
-           <div class="row">
-           
-
-               @foreach ($book as $book )
-                      <div class="col-md-4">
-                        <div class="shop-box-items style-2">
-                            <div class="book-thumb center">
-                                <a href="{{ asset('storage/books/' . $book->pdf) }}" target="_blank"><img src="{{asset('storage/books_pics/'. $book->image)}}" style="width: 450px;height:300PX;"></a>
-                                <ul class="post-box">
-                                    <li>
-
-                                        Hot
-                                    </li>
-
-                                </ul>
-                                <ul class="shop-icon d-grid justify-content-center align-items-center">
-                                    <li>
-                                        <a href='shop-cart.html'><i class="far fa-heart"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href='shop-cart.html'>
-                                            <img class="icon" src="{{asset('user/assets/img/icon/shuffle.svg')}}" alt="svg-icon">
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href='{{route('booksdetail',$book->id)}}'><i class="far fa-eye"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="shop-content">
-
-                                <h3><a href='shop-details.html'>{{$book->title}}</a></h3>
-                                <ul class="price-list">
-                                    <li>RS-{{$book->price}}</li>
-                                    <li>
-                                        40% off
-                                    </li>
-                                </ul>
-                                <ul class="author-post">
-                                    <li class="authot-list">
-                                        <span class="thumb">
-
-                                        </span>
-                                        <span class="content">{{$book->book_author->name}}</span>
-                                    </li>
-                                    <li class="star">
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-regular fa-star"></i>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="shop-button">
-                                <a class='theme-btn' href="{{route('booksdetail',$book->id)}}">Add To Cart</a>
-                            </div>
+            <a class='theme-btn style-2 fadeInUp' data-wow-delay='.5s' href='shop.html'>Explore More <i
+                    class="fa-solid fa-arrow-right-long"></i></a>
+        </div>
+ 
+        <div class="row g-4">
+ 
+            @forelse ($book as $item)
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <div class="shop-box-items style-2">
+                        <div class="book-thumb center">
+                            <a href="{{ asset('storage/books/' . $item->pdf) }}" target="_blank">
+                                <img class="fb-cover" src="{{ asset('storage/books_pics/' . $item->image) }}" alt="{{ $item->title }}">
+                            </a>
+                            <ul class="post-box">
+                                <li>
+                                    Hot
+                                </li>
+                            </ul>
+                            <ul class="shop-icon d-grid justify-content-center align-items-center">
+                                <li>
+                                    <a href='shop-cart.html'><i class="far fa-heart"></i></a>
+                                </li>
+                                <li>
+                                    <a href='shop-cart.html'>
+                                        <img class="icon" src="{{ asset('user/assets/img/icon/shuffle.svg') }}" alt="svg-icon">
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href='{{ route('booksdetail', $item->id) }}'><i class="far fa-eye"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="shop-content">
+ 
+                            <h3><a href='{{ route('booksdetail', $item->id) }}'>{{ $item->title }}</a></h3>
+                            <ul class="price-list">
+                                <li>RS-{{ $item->price }}</li>
+                                <li>
+                                    40% off
+                                </li>
+                            </ul>
+                            <ul class="author-post">
+                                <li class="authot-list">
+                                    <span class="thumb">{{ strtoupper(substr($item->book_author?->name ?? 'N', 0, 1)) }}</span>
+                                    <span class="content">{{ $item->book_author?->name ?? 'N/A' }}</span>
+                                </li>
+                                <li class="star">
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-regular fa-star"></i>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="shop-button">
+                            <a class='theme-btn' href="{{ route('booksdetail', $item->id) }}">Add To Cart</a>
                         </div>
                     </div>
-                    @endforeach
-           </div>
-
-
-            </div>
-        </div>
-    </section>
-
+                </div>
+            @empty
+                <div class="col-12">
+                    <div class="fb-empty">
+                        <div class="fb-empty-icon"><i class="fa-solid fa-book"></i></div>
+                        <h5 class="fw-semibold mb-1">No books available</h5>
+                        <p class="text-muted mb-0">New titles are added regularly, so check back soon.</p>
+                    </div>
+                </div>
+            @endforelse
  
-<section class="book-catagories-section fix section-padding bg-cover"
+        </div>
+    </div>
+</section>
+ 
+
+<!-- Categoriess -->
+ 
+@php
+    // A different icon for each card, repeating if there are more categories than icons
+    $cgIcons = ['fa-book', 'fa-book-open', 'fa-feather-pointed', 'fa-bookmark', 'fa-scroll', 'fa-landmark', 'fa-rocket', 'fa-heart'];
+@endphp
+ 
+<section class="cg-section book-catagories-section fix section-padding bg-cover"
     style="background-image: url({{ asset('user/assets/img/top-categories-bg.png') }})">
     <div class="container">
         <div class="book-catagories-wrapper">
-            <div class="section-title text-center">
+ 
+            <div class="cg-title section-title text-center mb-5">
                 <span class="icon"><img src="{{ asset('user/assets/img/icon/icon-24.svg') }}" alt="icon"></span>
-                <h2 class="wow fadeInUp" data-wow-delay=".3s">Top Categories Book</h2>
+                <h2 style="color: black;">Find Your Favorite Genre</h2>
             </div>
-            <div class="swiper book-catagories-slider">
-                <div class="swiper-wrapper">
  
-                    @foreach ($cat as $cat1)
-                        <div class="ms-5">
-                            <div class="book-catagories-items">
-                                <div class="book-thumb">
-                                    <span class="book-icon">
-                                        <i class="fa-solid fa-book"></i>
-                                    </span>
-                                </div>
-                                <div class="book-content">
-                                    <span class="book-box">{{ $cat1->name }}</span>
-                                    <h6>
-                                        {{-- <a href="{{ route('category.show', $cat1->id) }}">
-                                            {{ \Illuminate\Support\Str::limit($cat1->description, 60) }}
-                                        </a> --}}
-                                    </h6>
-                                </div>
-                            </div>
+            <div class="row g-4">
+ 
+                @forelse ($cat as $cat1)
+               <div class="col-12 col-sm-6 col-lg-3 cg-reveal" style="transition-delay: {{ ($loop->index % 4) * 0.1 }}s;">
+    <a href="{{ route('bycat', $cat1->id) }}"
+       class="cg-card book-catagories-items d-block text-decoration-none text-reset"
+       title="Browse {{ $cat1->name }} books">
+        <div class="book-thumb">
+            <span class="cg-icon book-icon">
+                <i class="fa-solid {{ $cgIcons[$loop->index % count($cgIcons)] }}"></i>
+            </span>
+        </div>
+        <div class="book-content">
+            <span class="cg-name book-box">{{ $cat1->name }}</span>
+            <p class="cg-desc">{{ \Illuminate\Support\Str::limit($cat1->description, 60) }}</p>
+        </div>
+    </a>
+</div>
+                @empty
+                    <div class="col-12">
+                        <div class="cg-empty">
+                            <div class="cg-empty-icon"><i class="fa-solid fa-book"></i></div>
+                            <h5 class="fw-semibold mb-1">No categories yet</h5>
+                            <p class="text-muted mb-0">New genres will show up here soon.</p>
                         </div>
-                    @endforeach
+                    </div>
+                @endforelse
  
-                </div>
             </div>
         </div>
     </div>
 </section>
+ 
 <!-- Book Catagories Section End -->
  
 
@@ -821,51 +832,68 @@
     </section>
 
     <!-- News Section start  -->
-      <section class="news-section fix section-padding bg-cover" style="background-image: url({{asset('user/assets/img/news/bg.jpg);')}}">
-        <div class="container">
-            <div class="section-title text-center">
-                <h2 class="mb-3 wow fadeInUp" data-wow-delay=".3s">Our Latest News</h2>
-                <p class="wow fadeInUp" data-wow-delay=".5s">Interdum et malesuada fames ac ante ipsum primis in
-                    faucibus. <br> Donec at nulla nulla. Duis posuere ex lacus</p>
-            </div>
-            <div class="row">
+  
 
-@foreach ($news as $dt)
-     <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay=".2s">
-                    <div class="news-card-items">
-                        <div class="news-image">
-                            <img src="{{asset('user/assets/img/news/09.jpg')}}" alt="img">
-                            <img src="{{asset('user/assets/img/news/09.jpg')}}" alt="img">
-                            <div class="post-box">
-                                {{$dt['tag']}}
-                            </div>
+<section class="ns-section news-section fix section-padding bg-cover"
+         style="background-image: url('{{ asset('user/assets/img/news/bg.jpg') }}');">
+    <div class="container">
+
+        <div class="ns-title section-title text-center mb-5">
+            <h2 class="mb-3 wow fadeInUp" data-wow-delay=".3s">Stay Updated with ReadSphere</h2>
+            <p class="wow fadeInUp" data-wow-delay=".5s">
+                Discover the latest book releases, exciting reading trends, upcoming writing competitions,
+                and special announcements. Stay connected with the world of books and never miss an
+                opportunity to explore, learn, and inspire.
+            </p>
+        </div>
+
+        <div class="row g-4">
+
+            @forelse ($news as $dt)
+                <div class="col-12 col-md-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay=".2s">
+                    <div class="ns-card">
+
+                        <div class="ns-image">
+                            <img src="{{ asset('storage/newimage/' . $dt->image) }}" alt="{{ $dt['title'] }}">
+                            <span class="ns-tag">{{ $dt['tag'] }}</span>
                         </div>
-                        <div class="news-content">
-                            <ul>
+
+                        <div class="ns-content">
+                            <ul class="ns-meta">
                                 <li>
-                                    <i class="fa-light fa-calendar-days"></i>
-                                    {{$dt['dealine']}}
+                                    <i class="fa-regular fa-calendar-days"></i>{{ $dt['dealine'] }}
                                 </li>
                                 <li>
-                                    <i class="fa-regular fa-user"></i>
-                                    By Admin {{ $dt->user->name ?? 'Admin' }}
+                                    <i class="fa-regular fa-user"></i>By {{ $dt->user->name ?? 'Admin' }}
                                 </li>
                             </ul>
-                            <h3><a href='news-details.html'>{{$dt['title']}}</a></h3>
-                            <a class='theme-btn-2' href='{{route('newsdtl' , $dt['id'])}}'>Read More <i
-                                    class="fa-regular fa-arrow-right-long"></i></a>
+
+                            <h3 class="ns-heading text-break">
+                                <a href="{{ route('newsdtl', $dt['id']) }}">{{ $dt['title'] }}</a>
+                            </h3>
+
+                            <div class="ns-footer">
+                                <a class="ns-btn" href="{{ route('newsdtl', $dt['id']) }}">
+                                    Read More <i class="fa-solid fa-arrow-right-long"></i>
+                                </a>
+                            </div>
                         </div>
+
                     </div>
                 </div>
-@endforeach
-
-
-
-
-
+            @empty
+                <div class="col-12">
+                    <div class="ns-empty">
+                        <div class="ns-empty-icon"><i class="fa-regular fa-newspaper"></i></div>
+                        <h5 class="fw-semibold mb-1">No news yet</h5>
+                        <p class="text-muted mb-0">Check back soon for the latest updates from ReadSphere.</p>
+                    </div>
+                </div>
+            @endforelse
 
         </div>
-    </section>
+    </div>
+</section>
 
 
     
@@ -1057,6 +1085,10 @@
     <!--<< Main.js >>-->
     <script src="{{asset('user/assets/js/main.js')}}"></script>
     <script src="{{asset('assets/user/usercomp.js')}}"></script>
+    <script src="{{asset('assets/admin/user/cat.js')}}"></script>
+
+        {{-- ReadSphere AI chatbot --}}
+    @include('partials.chatbot')
 </body>
 
 

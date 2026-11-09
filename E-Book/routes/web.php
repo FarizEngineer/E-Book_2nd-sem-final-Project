@@ -4,6 +4,7 @@ use App\Http\Controllers\adminController;
 use App\Http\Controllers\adminsecController;
 use App\Http\Controllers\userController;
 use App\Http\Controllers\authController;
+use App\Http\Controllers\ChatbotController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['userauth'])->group(function(){
@@ -44,10 +45,7 @@ Route::post('/update/author{id}',[adminController::class,'updateauthor'])->name(
 //admin dashboard routing
 Route::get('/admin',[adminController::class,'dashboard'])->name('dashboard');
 
-//order create
-Route::post('/order_detail',[userController::class,'order'])->name('order');
-//orders shows on users
-Route::get('/allorder',[userController::class,'all_order'])->name('allorder');
+
 //orders shows on admin
 Route::get('/admin/orders', [adminController::class, 'fatch_orders'])->name('adminorders');
 //order complete detail on admin
@@ -56,11 +54,7 @@ Route::get('/complete/detail{id}',[adminController::class,'all_order_deatil'])->
 Route::post('/order_status{id}',[adminController::class,'update_order'])->name('update.order');
 //pdf access
 Route::get('/pdf_access{id}',[userController::class,'pdf'])->name('pdf_access');
-//payments routes
-Route::post('/payment',[userController::class,'payment'])->name('payment');
-//payment order fatch
-Route::get('/allorder_credit{id}',[userController::class,'credit'])->name('credit');
-Route::get('/allorder_cod{id}',[userController::class,'cod'])->name('cod');
+
 // Remaining Order routes
 Route::get('/confirmed/orders',[adminController::class,'conforder'])->name('conforder');
 Route::get('/pending/orders',[adminController::class,'pendorder'])->name('pendorder');
@@ -89,11 +83,26 @@ Route::post('/edit/competition/{id}',[adminsecController::class,'editcomp'])->na
 Route::get('/delete/competition/{id}',[adminsecController::class,'delcomp'])->name('delcomp');
 
 
+// news detail page for admins route
+Route::get('dashboard/news/detail/page/{id}',[adminsecController::class,'admindtl'])->name('admindtl');
 });
+
+//order create
+Route::post('/order_detail',[userController::class,'order'])->name('order');
+//orders shows on users
+Route::get('/allorder',[userController::class,'all_order'])->name('allorder');
+
+//payments routes
+Route::post('/payment',[userController::class,'payment'])->name('payment');
+//payment order fatch
+Route::get('/allorder_credit{id}',[userController::class,'credit'])->name('credit');
+Route::get('/allorder_cod{id}',[userController::class,'cod'])->name('cod');
 
 // news detail page route
 Route::get('news/detail/page/{id}',[adminsecController::class,'newsdtl'])->name('newsdtl');
 
+// All categories routes
+Route::get("Books/by/categories/{id}",[adminsecController::class,'bycat'])->name('bycat');
 
 //user
 Route::get('/login',[authController::class,'loginform'])->name('loginform');
@@ -179,16 +188,15 @@ Route::get('/competition/work/{id}',
 
 Route::post('/competition/submit',
     [adminsecController::class,'submitCompetition'])
-    ->middleware('usercomp')
     ->name('competition.submit');
 
-Route::get('/view/comp',[adminsecController::class,'viewcomp'])->name('viewcomp')->middleware('usercomp');
+Route::get('/view/comp',[adminsecController::class,'viewcomp'])->name('viewcomp');
 
     Route::get('/admin/enrollments',[adminsecController::class, 'adminEnrollments'])->name('admin.enrollments');
 
 
 // result route
-Route::get('/announce/result/page/{id}',[adminsecCOntroller::class,'result'])->middleware('usercomp')->name('result');
+Route::get('/announce/result/page/{id}',[adminsecController::class,'result'])->name('result');
 // Update result route
 Route::post('/result/announced/{id}',[adminsecController::class,'resultannounce'])->name('resultannounce');
 
@@ -196,3 +204,9 @@ Route::post('/result/announced/{id}',[adminsecController::class,'resultannounce'
 // Error Page
 Route::get('/Error/try/again',[adminController::class,'errorpage'])->name('errorpage');
 
+// Chatbot routes
+Route::prefix('chatbot')->name('chatbot.')->group(function () {
+    Route::get('/history', [ChatbotController::class, 'history'])->name('history');
+    Route::post('/message', [ChatbotController::class, 'send'])->middleware('throttle:20,1')->name('send');
+    Route::delete('/history', [ChatbotController::class, 'clear'])->name('clear');
+});

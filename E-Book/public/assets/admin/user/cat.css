@@ -1,0 +1,735 @@
+ .cg-section {
+        --rs-green: #7db375;
+        --rs-green-dark: #67a05f;
+        --rs-green-soft: rgba(125, 179, 117, 0.16);
+        --rs-navy: #0b0b2b;
+        --rs-grey: #f4f4f4;
+        --rs-muted: #707070;
+ 
+        position: relative;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-color: var(--rs-grey);
+        overflow: hidden;
+    }
+ 
+    /* light overlay so the cards stay readable on any background image */
+    .cg-section::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: rgba(255, 255, 255, 0.85);
+    }
+ 
+    .cg-section > .container {
+        position: relative;
+        z-index: 1;
+    }
+ 
+    /* ---------- Heading ---------- */
+    .cg-title .icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 60px;
+        height: 60px;
+        border-radius: 14px;
+        background: var(--rs-green);
+        margin-bottom: 14px;
+        animation: cgBob 3s ease-in-out infinite;
+    }
+ 
+    .cg-title .icon img {
+        width: 30px;
+        height: 30px;
+        filter: brightness(0) invert(1);
+    }
+ 
+    @keyframes cgBob {
+        0%, 100% { transform: translateY(0); }
+        50%      { transform: translateY(-6px); }
+    }
+ 
+    .cg-title h2 {
+        color: var(--rs-navy);
+        font-weight: 700;
+        position: relative;
+        display: inline-block;
+        padding-bottom: 12px;
+    }
+ 
+    .cg-title h2::after {
+        content: '';
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        width: 0;
+        height: 3px;
+        border-radius: 3px;
+        background: var(--rs-green);
+        transform: translateX(-50%);
+        animation: cgLine 1s .4s ease forwards;
+    }
+ 
+    @keyframes cgLine {
+        to { width: 60%; }
+    }
+ 
+    /* ---------- Reveal animation ---------- */
+    .cg-reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity .6s ease, transform .6s ease;
+    }
+ 
+    .cg-reveal.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+ 
+    /* ---------- Category card ---------- */
+    .cg-card {
+        position: relative;
+        height: 100%;
+        background: var(--rs-grey);
+        border: 3px solid seagreen;
+        border-radius: 16px;
+        padding: 30px 22px 26px;
+        text-align: center;
+        overflow: hidden;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+        transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease, background .3s ease;
+    }
+ 
+    /* soft green circle in the corner */
+    .cg-card::before {
+        content: '';
+        position: absolute;
+        top: -50px;
+        right: -50px;
+        width: 130px;
+        height: 130px;
+        border-radius: 50%;
+        background: var(--rs-green-soft);
+        transition: transform .5s ease;
+    }
+ 
+    /* green bar that grows along the bottom on hover */
+    .cg-card::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 0;
+        height: 4px;
+        background: var(--rs-green);
+        transition: width .4s ease;
+    }
+ 
+    .cg-card:hover {
+        transform: translateY(-8px);
+        background: #fff;
+        border-color: var(--rs-green);
+        box-shadow: 0 16px 34px rgba(125, 179, 117, 0.35);
+    }
+ 
+    .cg-card:hover::before { transform: scale(2.4); }
+    .cg-card:hover::after  { width: 100%; }
+ 
+    .cg-icon {
+        position: relative;
+        z-index: 1;
+        width: 72px;
+        height: 72px;
+        margin: 0 auto 18px;
+        border-radius: 18px;
+        background: var(--rs-green);
+        color: #fff;
+        font-size: 1.7rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 0 0 6px var(--rs-green-soft);
+        transition: all .35s ease;
+    }
+ 
+    .cg-card:hover .cg-icon {
+        background: var(--rs-navy);
+        transform: rotate(-8deg) scale(1.1);
+        box-shadow: 0 0 0 6px rgba(11, 11, 43, 0.1);
+    }
+ 
+    .cg-name {
+        position: relative;
+        z-index: 1;
+        display: block;
+        font-weight: 700;
+        font-size: 1.15rem;
+        color: var(--rs-navy);
+        margin-bottom: 8px;
+        transition: color .3s ease;
+    }
+ 
+    .cg-desc {
+        position: relative;
+        z-index: 1;
+        color: var(--rs-muted);
+        font-size: .9rem;
+        line-height: 1.6;
+        margin: 0;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        min-height: 3.2em;
+    }
+ 
+    /* ---------- Empty state ---------- */
+    .cg-empty {
+        text-align: center;
+        padding: 50px 20px;
+        background: var(--rs-grey);
+        border-radius: 16px;
+    }
+ 
+    .cg-empty-icon {
+        width: 70px;
+        height: 70px;
+        border-radius: 14px;
+        background: var(--rs-green);
+        color: #fff;
+        margin: 0 auto 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.6rem;
+    }
+ 
+    /* respect users who turn animations off */
+    @media (prefers-reduced-motion: reduce) {
+        .cg-title .icon, .cg-title h2::after { animation: none; }
+        .cg-title h2::after { width: 60%; }
+        .cg-reveal { opacity: 1; transform: none; transition: none; }
+    }
+
+
+
+    /* Remaining CSS of website work */
+       :root {
+        --accent: rgba(39, 203, 154, 1);
+        --accent-dark: #1fae83;
+        --accent-soft: rgba(39, 203, 154, 0.12);
+    }
+
+    .ns-section {
+        position: relative;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-color: #f4f8f7;
+        padding: 80px 0;
+    }
+
+    /* soft light overlay so cards and text stay readable on any background */
+    .ns-section::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: rgba(244, 248, 247, 0.88);
+    }
+
+    .ns-section > .container {
+        position: relative;
+        z-index: 1;
+    }
+
+    .ns-title h2 {
+        font-weight: 700;
+        position: relative;
+        display: inline-block;
+        padding-bottom: 12px;
+    }
+
+    .ns-title h2::after {
+        content: '';
+        position: absolute;
+        left: 25%;
+        bottom: 0;
+        width: 50%;
+        height: 3px;
+        border-radius: 3px;
+        background: var(--accent);
+    }
+
+    .ns-title p {
+        max-width: 720px;
+        margin: 14px auto 0;
+        color: #6c757d;
+    }
+
+    /* ---------- News card ---------- */
+    .ns-card {
+        position: relative;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        background: #fff;
+        border-top: 4px solid var(--accent);
+        border-top-right-radius: 40px;
+        border-bottom-left-radius: 40px;
+        border-top-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+        overflow: hidden;
+        transition: transform .25s ease, box-shadow .25s ease;
+    }
+
+    .ns-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 14px 30px rgba(39, 203, 154, 0.25);
+    }
+
+    .ns-image {
+        position: relative;
+        height: 190px;
+        overflow: hidden;
+        background: var(--accent-soft);
+    }
+
+    .ns-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform .4s ease;
+    }
+
+    .ns-card:hover .ns-image img {
+        transform: scale(1.07);
+    }
+
+    .ns-tag {
+        position: absolute;
+        left: 14px;
+        bottom: 14px;
+        background: var(--accent);
+        color: #fff;
+        font-size: .75rem;
+        font-weight: 600;
+        padding: 4px 14px;
+        border-radius: 20px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .ns-content {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        padding: 18px;
+    }
+
+    .ns-meta {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 12px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px 16px;
+        font-size: .82rem;
+        color: #6c757d;
+    }
+
+    .ns-meta i {
+        color: var(--accent);
+        margin-right: 5px;
+    }
+
+    .ns-heading {
+        font-weight: 700;
+        font-size: 1.1rem;
+        line-height: 1.35;
+        margin-bottom: 16px;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .ns-heading a {
+        color: #222;
+        text-decoration: none;
+        transition: color .2s ease;
+    }
+
+    .ns-heading a:hover {
+        color: var(--accent-dark);
+    }
+
+    .ns-footer {
+        margin-top: auto;
+        padding-top: 14px;
+        border-top: 1px dashed rgba(39, 203, 154, 0.5);
+    }
+
+    .ns-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--accent-soft);
+        color: var(--accent-dark);
+        font-weight: 600;
+        font-size: .88rem;
+        padding: 7px 18px;
+        border-radius: 30px;
+        text-decoration: none;
+        transition: all .2s ease;
+    }
+
+    .ns-btn i {
+        transition: transform .2s ease;
+    }
+
+    .ns-btn:hover {
+        background: var(--accent);
+        color: #fff;
+    }
+
+    .ns-btn:hover i {
+        transform: translateX(4px);
+    }
+
+    /* ---------- Empty state ---------- */
+    .ns-empty {
+        text-align: center;
+        padding: 50px 20px;
+        background: #fff;
+        border-radius: 20px;
+        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
+    }
+
+    .ns-empty-icon {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: var(--accent-soft);
+        color: var(--accent);
+        margin: 0 auto 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.8rem;
+    }
+
+    @media (max-width: 767.98px) {
+        .ns-section { padding: 50px 0; }
+    }
+
+/* ------------------------------------------------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------------------------------------------------- */
+
+      /* Colors taken from the ReadSphere site theme.
+       Change --rs-green here if you want to match the exact shade of your theme. */
+    .fb-theme {
+        --rs-green: #7db375;
+        --rs-green-dark: #67a05f;
+        --rs-green-soft: rgba(125, 179, 117, 0.16);
+        --rs-navy: #0b0b2b;
+        --rs-grey: #f4f4f4;
+        --rs-muted: #707070;
+    }
+ 
+    /* ---------- Section header ---------- */
+    .fb-theme .section-title-area {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 14px;
+        margin-bottom: 36px;
+    }
+ 
+    .fb-theme .section-title h2 {
+        color: var(--rs-navy);
+        font-weight: 700;
+        margin: 0;
+    }
+ 
+    .fb-theme .section-title-area .theme-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--rs-green);
+        color: #fff;
+        font-weight: 600;
+        padding: 12px 28px;
+        border-radius: 40px;
+        text-decoration: none;
+        transition: all .2s ease;
+    }
+ 
+    .fb-theme .section-title-area .theme-btn:hover {
+        background: var(--rs-green-dark);
+        color: #fff;
+    }
+ 
+    .fb-theme .section-title-area .theme-btn i {
+        transition: transform .2s ease;
+    }
+ 
+    .fb-theme .section-title-area .theme-btn:hover i {
+        transform: translateX(4px);
+    }
+ 
+    /* ---------- Card ---------- */
+    .fb-theme .shop-box-items.style-2 {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        background: var(--rs-grey);
+        border-radius: 12px;
+        padding: 14px;
+        box-shadow: none;
+        transition: transform .25s ease, box-shadow .25s ease;
+    }
+ 
+    .fb-theme .shop-box-items.style-2:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 14px 30px rgba(125, 179, 117, 0.3);
+    }
+ 
+    /* cover */
+    .fb-theme .book-thumb {
+        position: relative;
+        height: 300px;
+        border-radius: 10px;
+        overflow: hidden;
+        background: var(--rs-green-soft);
+    }
+ 
+    .fb-theme .book-thumb > a {
+        display: block;
+        height: 100%;
+    }
+ 
+    .fb-theme .book-thumb img.fb-cover {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform .4s ease;
+    }
+ 
+    .fb-theme .shop-box-items:hover .fb-cover {
+        transform: scale(1.06);
+    }
+ 
+    /* "Hot" tag */
+    .fb-theme .post-box {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+ 
+    .fb-theme .post-box li {
+        background: var(--rs-green);
+        color: #fff;
+        font-size: .78rem;
+        font-weight: 600;
+        padding: 5px 14px;
+        border-radius: 8px;
+    }
+ 
+    /* hover icons: rounded green tiles like the icon tiles of the site */
+    .fb-theme .shop-icon {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        gap: 8px;
+        opacity: 0;
+        transform: translateX(14px);
+        transition: all .25s ease;
+    }
+ 
+    .fb-theme .shop-box-items:hover .shop-icon {
+        opacity: 1;
+        transform: translateX(0);
+    }
+ 
+    .fb-theme .shop-icon a {
+        width: 40px;
+        height: 40px;
+        border-radius: 8px;
+        background: var(--rs-green);
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all .2s ease;
+    }
+ 
+    .fb-theme .shop-icon a:hover {
+        background: var(--rs-navy);
+        color: #fff;
+    }
+ 
+    .fb-theme .shop-icon img.icon {
+        width: 16px;
+        height: 16px;
+        filter: brightness(0) invert(1);
+    }
+ 
+    /* touch screens have no hover, so always show the icons */
+    @media (hover: none) {
+        .fb-theme .shop-icon {
+            opacity: 1;
+            transform: none;
+        }
+    }
+ 
+    /* ---------- Content ---------- */
+    .fb-theme .shop-content {
+        flex: 1;
+        padding: 18px 4px 6px;
+    }
+ 
+    .fb-theme .shop-content h3 {
+        font-size: 1.15rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+ 
+    .fb-theme .shop-content h3 a {
+        color: var(--rs-navy);
+        text-decoration: none;
+        transition: color .2s ease;
+    }
+ 
+    .fb-theme .shop-content h3 a:hover {
+        color: var(--rs-green-dark);
+    }
+ 
+    .fb-theme .price-list {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 12px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+ 
+    .fb-theme .price-list li:first-child {
+        color: var(--rs-green-dark);
+        font-weight: 700;
+        font-size: 1.15rem;
+    }
+ 
+    .fb-theme .price-list li:last-child {
+        background: var(--rs-green-soft);
+        color: var(--rs-green-dark);
+        font-size: .75rem;
+        font-weight: 600;
+        padding: 3px 10px;
+        border-radius: 6px;
+    }
+ 
+    .fb-theme .author-post {
+        list-style: none;
+        padding: 12px 0 0;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 8px;
+        border-top: 1px solid rgba(0, 0, 0, 0.08);
+    }
+ 
+    .fb-theme .authot-list {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+ 
+    .fb-theme .authot-list .thumb {
+        width: 28px;
+        height: 28px;
+        border-radius: 8px;
+        background: var(--rs-green);
+        color: #fff;
+        font-size: .75rem;
+        font-weight: 700;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+ 
+    .fb-theme .authot-list .content {
+        color: var(--rs-muted);
+        font-size: .9rem;
+        font-weight: 500;
+    }
+ 
+    .fb-theme .author-post .star {
+        color: #f5b50a;
+        font-size: .8rem;
+        white-space: nowrap;
+    }
+ 
+    /* ---------- Button ---------- */
+    .fb-theme .shop-button {
+        padding: 12px 4px 4px;
+    }
+ 
+    .fb-theme .shop-button .theme-btn {
+        display: block;
+        text-align: center;
+        background: var(--rs-green);
+        color: #fff;
+        font-weight: 600;
+        padding: 11px;
+        border-radius: 40px;
+        text-decoration: none;
+        transition: all .2s ease;
+    }
+ 
+    .fb-theme .shop-button .theme-btn:hover {
+        background: var(--rs-navy);
+        color: #fff;
+    }
+ 
+    /* ---------- Empty state ---------- */
+    .fb-theme .fb-empty {
+        text-align: center;
+        padding: 50px 20px;
+        background: var(--rs-grey);
+        border-radius: 12px;
+    }
+ 
+    .fb-theme .fb-empty-icon {
+        width: 70px;
+        height: 70px;
+        border-radius: 12px;
+        background: var(--rs-green);
+        color: #fff;
+        margin: 0 auto 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.6rem;
+    }
+ 
+    @media (max-width: 575.98px) {
+        .fb-theme .section-title-area { justify-content: center; text-align: center; }
+    }

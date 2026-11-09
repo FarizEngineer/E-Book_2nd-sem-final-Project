@@ -6,9 +6,6 @@
 
     <form action="{{route('resultannounce',$data->id)}}" method="POST">
 @csrf
-
-
-
 <div class="row mt-5">
     <div class="col-md-6 offset-3">
 <select name="status" class="form-select">
@@ -18,7 +15,6 @@
 </select>
     </div>
 </div>
-
 <div class="row mt-4">
 <div class="col-md-6 offset-3">
     <select name="prize" class="form-select">
@@ -32,7 +28,6 @@
 </div>
 
 <div class="text-center mt-4"><button class="btn btn-primary">- Annouce Result -</button></div>
-
     </form>
 
 

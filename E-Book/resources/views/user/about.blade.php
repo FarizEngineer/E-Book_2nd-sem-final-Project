@@ -8,18 +8,19 @@
             <h4>Log in</h4>
         </div>
         <div class="login-sidebar">
-            <form action="#" id="contact-form" method="POST">
+            <form action="{{ url('/login') }}" id="login-form" method="POST">
+                @csrf
                 <div class="row g-4">
                     <div class="col-lg-12">
                         <div class="form-clt">
                             <span>Username or email address *</span>
-                            <input type="text" name="name15" id="name15" placeholder="">
+                            <input type="text" name="email" id="login-email" placeholder="" required>
                         </div>
                     </div>
                     <div class="col-lg-12">
                         <div class="form-clt">
                             <span>Password *</span>
-                            <input id="password" type="password" placeholder="">
+                            <input id="password" name="password" type="password" placeholder="" required>
                             <div class="icon"><i class="fa-regular fa-eye"></i></div>
                         </div>
                     </div>
@@ -29,9 +30,9 @@
                     <div class="col-lg-12">
                         <div class="from-cheak-items">
                             <div class="form-check d-flex gap-2 from-customradio">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                    id="flexRadioDefault1">
-                                <label class="form-check-label" for="flexRadioDefault1">
+                                <input class="form-check-input" type="checkbox" name="remember"
+                                    id="rememberMe">
+                                <label class="form-check-label" for="rememberMe">
                                     Remember Me
                                 </label>
                             </div>
@@ -42,22 +43,24 @@
             </form>
             <p class="text">Or login with</p>
             <div class="social-item">
-                <a href="#" class="facebook-text"><img src="{{asset('user/assets/img/facebook.png')}}" alt="img">FACEBOOK</a>
-                <a href="#" class="facebook-text google-text"><img src="{{asset('user/assets/img/google.png')}}" alt="img">Google</a>
+                <a href="#" class="facebook-text"><img src="{{ asset('user/assets/img/facebook.png') }}" alt="Facebook">FACEBOOK</a>
+                <a href="#" class="facebook-text google-text"><img src="{{ asset('user/assets/img/google.png') }}" alt="Google">Google</a>
             </div>
             <div class="user-icon-box">
-                <img src="{{asset('user/assets/img/user.png')}}" alt="img">
+                <img src="{{ asset('user/assets/img/user.png') }}" alt="User">
                 <p>No account yet?</p>
-                <a href="account.html">Create an Account</a>
+                <a href="{{ url('/register') }}">Create an Account</a>
             </div>
         </div>
-        <button id="closeButton" class="x-mark-icon"><i class="fas fa-times"></i></button>
+        <button id="closeButton" class="x-mark-icon" aria-label="Close"><i class="fas fa-times"></i></button>
     </div>
 
     <div class="rs-about">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,500&family=Public+Sans:wght@400;500;600;700&display=swap');
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,500&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
+    <style>
         .rs-about{
             --rs-paper:#F6F1E4;
             --rs-paper-deep:#EDE4CC;
@@ -102,13 +105,6 @@
         .rs-hero .rs-hero-grid{ display:grid; grid-template-columns:1.05fr .95fr; gap:4.5rem; align-items:center; }
         .rs-hero h2{ font-size:clamp(2.1rem,3.4vw,3.1rem); line-height:1.14; max-width:14ch; }
         .rs-hero p{ font-size:1.05rem; line-height:1.75; max-width:52ch; margin-top:1.75rem; color:var(--rs-text); }
-        .rs-hero-link{
-            display:inline-flex; align-items:center; gap:.6rem; margin-top:2rem;
-            font-family:'Newsreader',serif; font-style:italic; font-size:1.15rem; color:var(--rs-ink-deep);
-            border-bottom:1px solid var(--rs-brass); padding-bottom:.15rem;
-        }
-        .rs-hero-link i{ color:var(--rs-brass); font-size:.85rem; }
-        .rs-hero-link:hover{ color:var(--rs-brass); }
 
         .rs-hero-media{ position:relative; }
         .rs-hero-media::before,.rs-hero-media::after{
@@ -189,25 +185,21 @@
         }
     </style>
 
-    <!-- Breadcumb Section Start -->
+    <!-- Breadcrumb Section Start -->
     <div class="breadcrumb-wrapper bg-cover section-padding rs-breadcrumb"
-        style="background-image: url({{asset('user/assets/img/hero/breadcrumb-bg.jpg);')}}">
+        style="background-image: url('{{ asset('user/assets/img/hero/breadcrumb-bg.jpg') }}');">
         <div class="container">
             <div class="page-heading">
                 <h1>About Us</h1>
                 <div class="page-header">
                     <ul class="breadcrumb-items" data-wow-delay=".3s">
                         <li>
-                            <a href='index.html'>
-                                Home
-                            </a>
+                            <a href="{{ url('/') }}">Home</a>
                         </li>
                         <li>
                             <i class="fa-solid fa-chevron-right"></i>
                         </li>
-                        <li>
-                            About Us
-                        </li>
+                        <li>About Us</li>
                     </ul>
                 </div>
             </div>
@@ -225,21 +217,50 @@
                         to be found. Novels, comics, journals, quizzes, and general knowledge sit side by side
                         with the people who make them — a shelf that's always being added to.
                     </p>
-                    <a class="rs-hero-link" href="about.html">Learn more <i class="fa-regular fa-arrow-right"></i></a>
                 </div>
                 <div class="rs-hero-media">
                     <div class="about-image">
-                        <img src="{{asset('user/assets/img/about.jpg')}}" alt="img">
+                        <img src="{{ asset('assets/admin/user/images/ReadSphere_image.png') }}" alt="ReadSphere community of readers and writers">
                         <div class="video-box">
-                            <a href="" class="video-btn ripple video-popup">
+                            <button type="button" class="video-btn ripple border-0"
+                                    data-bs-toggle="modal" data-bs-target="#videoModal"
+                                    aria-label="Play video">
                                 <i class="fa-solid fa-play"></i>
-                            </a>
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
+    {{-- Video modal --}}
+    <div class="modal fade" id="videoModal" tabindex="-1" aria-label="Video player" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content bg-black border-0 rounded-4 overflow-hidden shadow-lg">
+                <button type="button" class="btn-close btn-close-white position-absolute top-0 end-0 m-3 z-3"
+                        data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="ratio ratio-16x9">
+                    <video id="readsphereVideo" controls playsinline preload="metadata"
+                           poster="{{ asset('assets/admin/user/images/ReadSphere_image.png') }}">
+                        <source src="{{ asset('assets/admin/user/images/ReadSPhere.mp4') }}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Play when the modal opens, pause and rewind when it closes
+        (function () {
+            var modal = document.getElementById('videoModal');
+            var video = document.getElementById('readsphereVideo');
+            if (!modal || !video) return;
+            modal.addEventListener('shown.bs.modal', function () { video.play(); });
+            modal.addEventListener('hidden.bs.modal', function () { video.pause(); video.currentTime = 0; });
+        })();
+    </script>
 
     <!-- Pillars Section Start -->
     <section class="rs-pillars">
@@ -269,13 +290,13 @@
         </div>
     </section>
 
-    <!-- Cta Banner Section Start -->
+    <!-- CTA Section Start -->
     <section class="rs-cta fix">
         <div class="container">
             <div class="rs-cta-inner">
                 <span>Discover ReadSphere</span>
                 <h2>Your next chapter starts here.</h2>
-                <a class="rs-cta-btn" href="shop.html">Browse Books <i class="fa-solid fa-arrow-right-long"></i></a>
+                <a class="rs-cta-btn" href="{{ url('/shop') }}">Browse Books <i class="fa-solid fa-arrow-right-long"></i></a>
             </div>
         </div>
     </section>
@@ -299,9 +320,9 @@
                             <div class="client-info-wrapper d-flex align-items-center justify-content-between">
                                 <div class="client-info">
                                     <div class="client-img bg-cover"
-                                        style="background-image: url('{{asset('user/assets/img/testimonial/01.jpg);')}}">
+                                        style="background-image: url('{{ asset('user/assets/img/testimonial/01.jpg') }}');">
                                         <div class="icon">
-                                            <img class="shape" src="{{asset('user/assets/img/testimonial/shape.svg')}}" alt="img">
+                                            <img class="shape" src="{{ asset('user/assets/img/testimonial/shape.svg') }}" alt="">
                                         </div>
                                     </div>
                                     <div class="content">
@@ -317,7 +338,7 @@
                                     </div>
                                 </div>
                                 <div class="logo">
-                                    <img src="{{asset('user/assets/img/testimonial/logo1.png')}}" alt="">
+                                    <img src="{{ asset('user/assets/img/testimonial/logo1.png') }}" alt="">
                                 </div>
                             </div>
                         </div>
@@ -332,9 +353,9 @@
                             <div class="client-info-wrapper d-flex align-items-center justify-content-between">
                                 <div class="client-info">
                                     <div class="client-img bg-cover"
-                                        style="background-image: url('{{asset('user/assets/img/testimonial/02.jpg);')}}">
+                                        style="background-image: url('{{ asset('user/assets/img/testimonial/02.jpg') }}');">
                                         <div class="icon">
-                                            <img class="shape" src="{{asset('user/assets/img/testimonial/shape.svg')}}" alt="img">
+                                            <img class="shape" src="{{ asset('user/assets/img/testimonial/shape.svg') }}" alt="">
                                         </div>
                                     </div>
                                     <div class="content">
@@ -350,7 +371,7 @@
                                     </div>
                                 </div>
                                 <div class="logo">
-                                    <img src="{{asset('user/assets/img/testimonial/logo2.png')}}" alt="">
+                                    <img src="{{ asset('user/assets/img/testimonial/logo2.png') }}" alt="">
                                 </div>
                             </div>
                         </div>
@@ -364,9 +385,9 @@
                             <div class="client-info-wrapper d-flex align-items-center justify-content-between">
                                 <div class="client-info">
                                     <div class="client-img bg-cover"
-                                        style="background-image: url('{{asset('user/assets/img/testimonial/03.jpg);')}}">
+                                        style="background-image: url('{{ asset('user/assets/img/testimonial/03.jpg') }}');">
                                         <div class="icon">
-                                            <img class="shape" src="{{asset('user/assets/img/testimonial/shape.svg')}}" alt="img">
+                                            <img class="shape" src="{{ asset('user/assets/img/testimonial/shape.svg') }}" alt="">
                                         </div>
                                     </div>
                                     <div class="content">
@@ -376,13 +397,13 @@
                                             <i class="fa-solid fa-star"></i>
                                             <i class="fa-solid fa-star"></i>
                                             <i class="fa-solid fa-star"></i>
-                                            <i class="fa-regular fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
                                             <i class="fa-regular fa-star"></i>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="logo">
-                                    <img src="{{asset('user/assets/img/testimonial/logo1.png')}}" alt="">
+                                    <img src="{{ asset('user/assets/img/testimonial/logo1.png') }}" alt="">
                                 </div>
                             </div>
                         </div>
@@ -396,9 +417,9 @@
                             <div class="client-info-wrapper d-flex align-items-center justify-content-between">
                                 <div class="client-info">
                                     <div class="client-img bg-cover"
-                                        style="background-image: url('{{asset('user/assets/img/testimonial/04.jpg);')}}">
+                                        style="background-image: url('{{ asset('user/assets/img/testimonial/04.jpg') }}');">
                                         <div class="icon">
-                                            <img class="shape" src="{{asset('user/assets/img/testimonial/shape.svg')}}" alt="img">
+                                            <img class="shape" src="{{ asset('user/assets/img/testimonial/shape.svg') }}" alt="">
                                         </div>
                                     </div>
                                     <div class="content">
@@ -414,7 +435,7 @@
                                     </div>
                                 </div>
                                 <div class="logo">
-                                    <img src="{{asset('user/assets/img/testimonial/logo2.png')}}" alt="">
+                                    <img src="{{ asset('user/assets/img/testimonial/logo2.png') }}" alt="">
                                 </div>
                             </div>
                         </div>
@@ -425,15 +446,15 @@
     </section>
 
     <!-- Team Section Start -->
-    <section class="rs-team fix margin-bottom-30">
+    <section class="rs-team fix">
         <div class="container">
             <div class="section-title text-center">
-                <h2 class="mb-3">Featured Author</h2>
+                <h2 class="mb-3">Featured Authors</h2>
                 <p>Meet a few of the talented writers sharing their work with the ReadSphere community.</p>
             </div>
             <div class="array-button">
-                <button class="array-prev"><i class="fal fa-arrow-left"></i></button>
-                <button class="array-next"><i class="fal fa-arrow-right"></i></button>
+                <button class="array-prev" aria-label="Previous"><i class="fal fa-arrow-left"></i></button>
+                <button class="array-next" aria-label="Next"><i class="fal fa-arrow-right"></i></button>
             </div>
             <div class="swiper team-slider">
                 <div class="swiper-wrapper">
@@ -441,14 +462,14 @@
                         <div class="team-box-items">
                             <div class="team-image">
                                 <div class="thumb">
-                                    <img src="{{asset('user/assets/img/team/01.jpg')}}" alt="img">
+                                    <img src="{{ asset('user/assets/img/team/01.jpg') }}" alt="Esther Howard">
                                 </div>
                                 <div class="shape-img">
-                                    <img src="{{asset('user/assets/img/team/shape-img.png')}}" alt="img">
+                                    <img src="{{ asset('user/assets/img/team/shape-img.png') }}" alt="">
                                 </div>
                             </div>
                             <div class="team-content text-center">
-                                <h6><a href='team-details.html'>Esther Howard</a></h6>
+                                <h6><a href="#">Esther Howard</a></h6>
                                 <p>10 Published Books</p>
                             </div>
                         </div>
@@ -457,14 +478,14 @@
                         <div class="team-box-items">
                             <div class="team-image">
                                 <div class="thumb">
-                                    <img src="{{asset('user/assets/img/team/02.jpg')}}" alt="img">
+                                    <img src="{{ asset('user/assets/img/team/02.jpg') }}" alt="Shikhon Islam">
                                 </div>
                                 <div class="shape-img">
-                                    <img src="{{asset('user/assets/img/team/shape-img.png')}}" alt="img">
+                                    <img src="{{ asset('user/assets/img/team/shape-img.png') }}" alt="">
                                 </div>
                             </div>
                             <div class="team-content text-center">
-                                <h6><a href='team-details.html'>Shikhon Islam</a></h6>
+                                <h6><a href="#">Shikhon Islam</a></h6>
                                 <p>07 Published Books</p>
                             </div>
                         </div>
@@ -473,14 +494,14 @@
                         <div class="team-box-items">
                             <div class="team-image">
                                 <div class="thumb">
-                                    <img src="{{asset('user/assets/img/team/03.jpg')}}" alt="img">
+                                    <img src="{{ asset('user/assets/img/team/03.jpg') }}" alt="Kawser Ahmed">
                                 </div>
                                 <div class="shape-img">
-                                    <img src="{{asset('user/assets/img/team/shape-img.png')}}" alt="img">
+                                    <img src="{{ asset('user/assets/img/team/shape-img.png') }}" alt="">
                                 </div>
                             </div>
                             <div class="team-content text-center">
-                                <h6><a href='team-details.html'>Kawser Ahmed</a></h6>
+                                <h6><a href="#">Kawser Ahmed</a></h6>
                                 <p>04 Published Books</p>
                             </div>
                         </div>
@@ -489,14 +510,14 @@
                         <div class="team-box-items">
                             <div class="team-image">
                                 <div class="thumb">
-                                    <img src="{{asset('user/assets/img/team/04.jpg')}}" alt="img">
+                                    <img src="{{ asset('user/assets/img/team/04.jpg') }}" alt="Brooklyn Simmons">
                                 </div>
                                 <div class="shape-img">
-                                    <img src="{{asset('user/assets/img/team/shape-img.png')}}" alt="img">
+                                    <img src="{{ asset('user/assets/img/team/shape-img.png') }}" alt="">
                                 </div>
                             </div>
                             <div class="team-content text-center">
-                                <h6><a href='team-details.html'>Brooklyn Simmons</a></h6>
+                                <h6><a href="#">Brooklyn Simmons</a></h6>
                                 <p>15 Published Books</p>
                             </div>
                         </div>
@@ -505,14 +526,14 @@
                         <div class="team-box-items">
                             <div class="team-image">
                                 <div class="thumb">
-                                    <img src="{{asset('user/assets/img/team/05.jpg')}}" alt="img">
+                                    <img src="{{ asset('user/assets/img/team/05.jpg') }}" alt="Leslie Alexander">
                                 </div>
                                 <div class="shape-img">
-                                    <img src="{{asset('user/assets/img/team/shape-img.png')}}" alt="img">
+                                    <img src="{{ asset('user/assets/img/team/shape-img.png') }}" alt="">
                                 </div>
                             </div>
                             <div class="team-content text-center">
-                                <h6><a href='team-details.html'>Leslie Alexander</a></h6>
+                                <h6><a href="#">Leslie Alexander</a></h6>
                                 <p>05 Published Books</p>
                             </div>
                         </div>
@@ -521,14 +542,14 @@
                         <div class="team-box-items">
                             <div class="team-image">
                                 <div class="thumb">
-                                    <img src="{{asset('user/assets/img/team/06.jpg')}}" alt="img">
+                                    <img src="{{ asset('user/assets/img/team/06.jpg') }}" alt="Guy Hawkins">
                                 </div>
                                 <div class="shape-img">
-                                    <img src="{{asset('user/assets/img/team/shape-img.png')}}" alt="img">
+                                    <img src="{{ asset('user/assets/img/team/shape-img.png') }}" alt="">
                                 </div>
                             </div>
                             <div class="team-content text-center">
-                                <h6><a href='team-details.html'>Guy Hawkins</a></h6>
+                                <h6><a href="#">Guy Hawkins</a></h6>
                                 <p>12 Published Books</p>
                             </div>
                         </div>

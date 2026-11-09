@@ -64,7 +64,7 @@
                 <i class="bi bi-trophy-fill"></i>
 
                 <div class="competition-badge">
-                    BOOKIM EVENT
+                    ReadSphere EVENT
                 </div>
 
             </div>
@@ -205,7 +205,7 @@
                 <i class="bi bi-trophy-fill"></i>
 
                 <div class="competition-badge">
-                    BOOKIM EVENT
+                    ReadSphere EVENT
                 </div>
 
             </div>

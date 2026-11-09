@@ -48,7 +48,7 @@
     <div class="cursor-follower"></div>
 
     <!-- Back To Top start -->
-    <button id="back-top" class="back-to-top">
+    <button type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">
         <i class="fa-solid fa-chevron-up"></i>
     </button>
 
@@ -442,7 +442,11 @@
     <script src="{{asset('user/assets/js/gsap.min.js')}}"></script>
     <!--<< Main.js >>-->
     <script src="{{asset('user/assets/js/main.js')}}"></script>
-    <script src="{{asset('assets/user/usercomp.js')}}"></script>
+
+        <script src="{{asset('assets/user/usercomp.js')}}"></script>
+
+    {{-- ReadSphere AI chatbot --}}
+    @include('partials.chatbot')
 </body>
 
 
